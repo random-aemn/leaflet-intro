@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
+    <script src="data/cboutline.js"></script>
 <style>
 html, body {
 height: 100%;
@@ -43,8 +44,18 @@ attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreet
 }).addTo(map);
 
 
+L.geoJSON(json_cboutline, {
+    style: function (feature) {
+        return {color: feature.properties.color};
+    }
+}).bindPopup(function (layer) {
+    return layer.feature.properties.description;
+}).addTo(map);
+
+
+
 function onMapClick(e) {
-popup
+L.popup()
 .setLatLng(e.latlng)
 .setContent(`You clicked the map at ${e.latlng.toString()}`)
 .openOn(map);
