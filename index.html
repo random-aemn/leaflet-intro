@@ -32,10 +32,13 @@ max-height: 100%;
 
 
 
-<div id="map" style="width: 600px; height: 400px;"></div>
+<div id="map" style="width: 600px; height: 600px;"></div>
 <script>
 
-const map = L.map('map').setView([38.5214, -77.1050], 7);
+cbCenter = [38.5214, -77.1050]
+    
+
+const map = L.map('map').setView(cbCenter, 7);
 
 
 const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -46,7 +49,9 @@ attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreet
 
 L.geoJSON(json_cboutline, {
     style: function (feature) {
-        return {color: feature.properties.color};
+        return {color: 'red',
+            fill: false
+        };
     }
 }).bindPopup(function (layer) {
     return layer.feature.properties.description;
