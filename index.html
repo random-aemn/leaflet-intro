@@ -13,6 +13,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <script src="data/cboutline.js"></script>
+    <script src="https://unpkg.com/leaflet-ant-path" type="text/javascript"></script>
 <style>
 html, body {
 height: 100%;
@@ -40,6 +41,22 @@ cbCenter = [38.5214, -77.1050]
 
 const map = L.map('map').setView(cbCenter, 7);
 
+const myPath = [
+	[38.886757, -76.415405],
+	[38.659778, -76.195679],
+	[38.483695, -76.393433],
+	[38.104305, -76.228638],
+	[37.474858, -76.766968]
+];
+
+L.circleMarker(myPath[0], {radius: 3}).addTo(map);
+L.circleMarker(myPath[1], {radius: 3}).addTo(map);
+L.circleMarker(myPath[2], {radius: 3}).addTo(map);
+L.circleMarker(myPath[3], {radius: 3}).addTo(map);
+L.circleMarker(myPath[4], {radius: 3}).addTo(map);
+
+let myAntPath = new L.Polyline(myPath, {color: 'blue', weight: 2}).addTo(map); 
+
 
 const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 maxZoom: 19,
@@ -49,7 +66,7 @@ attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreet
 
 L.geoJSON(json_cboutline, {
     style: function (feature) {
-        return {color: 'red',
+        return {color: 'red', weight: 1,
             fill: false
         };
     }
